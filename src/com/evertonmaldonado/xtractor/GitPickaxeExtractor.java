@@ -12,6 +12,8 @@ import com.evertonmaldonado.model.CommentFile;
 
 public class GitPickaxeExtractor {
 
+	private static final String BASH_SCRIPTS = "bash_scripts/";
+
 	public String getLog(CommentFile commentFile, String hackPattern) throws ExecuteException, IOException{
 		String result = null;
 		String fileName = commentFile.getFileName();
@@ -74,7 +76,7 @@ public class GitPickaxeExtractor {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
 		CommandLine command = new CommandLine("/bin/sh"); 
-		command.addArgument(scriptName);
+		command.addArgument(BASH_SCRIPTS + scriptName);
 		command.addArgument("\""+directory+"\"");
 		command.addArgument("\""+className+"\"");
 		DefaultExecutor executor = new DefaultExecutor();

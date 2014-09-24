@@ -2,6 +2,8 @@ package com.evertonmaldonado.model;
 
 import java.util.StringTokenizer;
 
+import com.evertonmaldonado.exception.CommentFileInitializationException;
+
 public class CommentFile {
 
 	private String absoluteFileName;
@@ -11,11 +13,7 @@ public class CommentFile {
 
 
 	public CommentFile(String fileContent){
-		setAbsoluteFileName(fileContent);
-//		setContent(fileContent);
-//		setFileName();
-		//		setDirectory();
-
+		setUpClassAtributes(fileContent);
 	}
 
 	public String getAbsoluteFileName() {
@@ -35,13 +33,20 @@ public class CommentFile {
 	}
 
 
-	private void setAbsoluteFileName(String fileContent) {
-		String contentWithoutLineBreakers = fileContent.replaceAll("(\\r|\\n)","").trim();
-		String[] filePart = contentWithoutLineBreakers.split("<BeginOfFile>");
-		absoluteFileName = filePart[0];
-		setContent(filePart[1]);
-		setFileName();
-		setDirectory();
+	private void setUpClassAtributes(String fileContent) {
+		try{
+			String contentWithoutLineBreakers = fileContent.replaceAll("(\\r|\\n)","").trim();
+			String[] filePart = contentWithoutLineBreakers.split("<BeginOfFile>");
+			if(filePart.length < 2) {
+				throw new CommentFileInitializationException(contentWithoutLineBreakers);
+			}
+			absoluteFileName = filePart[0];
+			setContent(filePart[1]);
+			setFileName();
+			setDirectory();
+		}catch(CommentFileInitializationException ex){
+			System.out.println(ex.getMessage());
+		}
 	}
 
 	private void setFileName() {
@@ -55,21 +60,11 @@ public class CommentFile {
 		}
 	}
 
-	//	TODO: CAN TURN INTO A COLLECTION OF STRINGS
 	private void setContent(String fileContent) {
-//		StringBuffer sb = new StringBuffer();
-//		for(String line : fileContent.split(this.absoluteFileName)){
-//			sb.append(line);
-//		}
 		content = fileContent;
 	}
 
 	private void setDirectory() {
-//		StringBuffer sb = new StringBuffer();
-//		for(String line : this.absoluteFileName.split(this.fileName)){
-//			sb.append(line);
-//		}
-//		directory = sb.toString();
 		String[] directoryPart =  this.absoluteFileName.split(this.fileName);
 		directory = directoryPart[0];
 	}
