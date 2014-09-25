@@ -7,11 +7,11 @@ import org.apache.commons.io.FileUtils;
 
 import com.evertonmaldonado.model.CommentFile;
 
-public class HackPatternMatcher {
+public class HackWordMatcher {
 
 	private HashSet<String> wordList;
 	
-	public HackPatternMatcher(){
+	public HackWordMatcher(){
 		wordList =  loadWords();
 	}
 	
@@ -28,7 +28,10 @@ public class HackPatternMatcher {
 		
 		StringBuilder sb  = new StringBuilder();
 		if(!occurrences.isEmpty()){
+			sb.append(System.getProperty("line.separator"));
 			sb.append(commentFile.getAbsoluteFileName());
+			sb.append(System.getProperty("line.separator"));
+			sb.append("<BeginOfFile>");
 			sb.append(System.getProperty("line.separator"));
 			sb.append("has " + occurrences.size() + " hack patterns :");
 			for(String occurrence : occurrences){
@@ -36,12 +39,17 @@ public class HackPatternMatcher {
 				sb.append(occurrence + " ; ");
 				sb.append(System.getProperty("line.separator"));
 				try{
+					sb.append("<BeginOfCommit>");
+					sb.append(System.getProperty("line.separator"));
 					sb.append(new GitPickaxeExtractor().getLog(commentFile, occurrence));
+					sb.append(System.getProperty("line.separator"));
+					sb.append("<EndOfCommit>");
 				}catch(Exception e){
 					System.out.println(commentFile.getAbsoluteFileName() + "  " +  e.getMessage());
 				}
 			}
 			sb.append(System.getProperty("line.separator"));
+			sb.append("<EndOfFile>");
 		}
 		FileUtils.write(FileUtils.getFile("eclipse_hack_pattern.txt"), sb.toString(), true);
 	}

@@ -70,6 +70,19 @@ public class GitPickaxeExtractor {
 		executor.setStreamHandler(streamHandler);
 		executor.execute(command);
 		return outputStream.toString();
+		
+//		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+//		CommandLine command = new CommandLine("/bin/sh"); 
+//		command.addArgument(BASH_SCRIPTS + "git_pickaxe.sh");
+//		command.addArgument("\""+directory+"\"");
+//		command.addArgument("\""+hackPattern+"\"");
+//		command.addArgument("\""+className+"\"");
+//		DefaultExecutor executor = new DefaultExecutor();
+//		executor.setStreamHandler(streamHandler);
+//		executor.execute(command);
+//		return outputStream.toString();
+		
 	}
 	
 	private String executeCommandWorkArround(String scriptName,  String className, String directory) throws ExecuteException, IOException{
