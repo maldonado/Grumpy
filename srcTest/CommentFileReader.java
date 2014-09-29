@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import com.evertonmaldonado.model.CommentFile;
-import com.evertonmaldonado.xtractor.HackPatternMatcher;
+import com.evertonmaldonado.xtractor.HackWordMatcher;
 
 
 public class CommentFileReader {
@@ -18,7 +18,7 @@ public class CommentFileReader {
 		String[] splited = file.split("<EndOfFile>");
 
 		for (String commentsInOneClass : splited) {
-			HackPatternMatcher reader = new HackPatternMatcher();
+			HackWordMatcher reader = new HackWordMatcher();
 			reader.readComments(new CommentFile(commentsInOneClass));
 		}
 	}

@@ -46,6 +46,8 @@ public class HackWordMatcher {
 					sb.append("<EndOfCommit>");
 				}catch(Exception e){
 					System.out.println(commentFile.getAbsoluteFileName() + "  " +  e.getMessage());
+					sb.append(System.getProperty("line.separator"));
+					sb.append("<EndOfCommit>");
 				}
 			}
 			sb.append(System.getProperty("line.separator"));

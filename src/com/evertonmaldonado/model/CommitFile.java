@@ -19,8 +19,16 @@ public class CommitFile {
 	public CommitFile(String fileContent){
 		commits = new ArrayList<Commit>();
 		setUpClassAtributes(fileContent);
+		FileCounter.incrementNumberOfFilesAnalyzed();
+		for (Commit commit : commits) {
+			FileCounter.incrementNumberOfCommitMessagesAnalyzed();
+		}
 	}
 
+	public Collection<Commit> getCommits(){
+		return commits;
+	}
+	
 	public String getAbsoluteFileName() {
 		return this.absoluteFileName;
 	}
@@ -65,8 +73,9 @@ public class CommitFile {
 	}
 
 	private void setContent(String fileContent) {
-		content = fileContent.substring((fileContent.indexOf("<BeginOfCommit>") + 15), (fileContent.indexOf("<EndOfCommit>")) );
-		
+		content = fileContent.substring((fileContent.indexOf("<BeginOfCommit>") + 15), (fileContent.lastIndexOf("<EndOfCommit>")) );
+//		content.replaceAll("<BeginOfCommit>", "");
+//		content.replaceAll("<EndOfCommit>", "");
 		String[] lines =  content.split("\n");
 		for (int i = 0; i < lines.length ; i++) {
 			if(lines[i].startsWith("commit")){

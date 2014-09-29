@@ -14,5 +14,8 @@ time log 12 28
 test.sh
 .project
 .settings/org.eclipse.jdt.core.prefs
+eclipse_hack_pattern-V002.txt
+outputFiles/
+test.txt
 
 
