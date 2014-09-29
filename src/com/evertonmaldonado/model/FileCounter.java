@@ -35,8 +35,8 @@ public class FileCounter {
 		withoutClassificationChange ++;
 	}
 	
-	public static void incrementNumberOfCommitMessagesAnalyzed(){
-		numberOfCommitMessagesAnalyzed ++;
+	public static void incrementNumberOfCommitMessagesAnalyzed(int numberOfCommits){
+		numberOfCommitMessagesAnalyzed += numberOfCommits;
 	}
 	
 	public static void incrementNumberOfFilesAnalyzed(){

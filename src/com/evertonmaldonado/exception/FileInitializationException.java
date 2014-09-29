@@ -1,6 +1,6 @@
 package com.evertonmaldonado.exception;
 
-public class CommentFileInitializationException extends RuntimeException {
+public class FileInitializationException extends RuntimeException {
 
 	/**
 	 * 
@@ -9,19 +9,19 @@ public class CommentFileInitializationException extends RuntimeException {
 	
 	private static final String DEFAULT_MESSAGE = "Exception initializing the comment file: ";
 
-	public CommentFileInitializationException(){
+	public FileInitializationException(){
 		super(DEFAULT_MESSAGE);
 	}
 
-	public CommentFileInitializationException(String fileName){
+	public FileInitializationException(String fileName){
 		super(DEFAULT_MESSAGE + fileName);
 	}
 
-	public CommentFileInitializationException(String fileName, Throwable cause){
+	public FileInitializationException(String fileName, Throwable cause){
 		super(DEFAULT_MESSAGE + fileName, cause);
 	}
 
-	public CommentFileInitializationException(Throwable cause){
+	public FileInitializationException(Throwable cause){
 		super(cause);
 	}
 }
