@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import com.evertonmaldonado.model.CommentFile;
+import com.evertonmaldonado.model.FileCounter;
 import com.evertonmaldonado.xtractor.HackWordMatcher;
 
 
@@ -21,5 +22,6 @@ public class CommentFileReader {
 			HackWordMatcher reader = new HackWordMatcher();
 			reader.readComments(new CommentFile(commentsInOneClass));
 		}
+		System.out.println("numberOfFilesAnalyzed =  "+ FileCounter.getNumberOfFilesAnalyzed());
 	}
 }

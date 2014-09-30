@@ -10,22 +10,22 @@ import com.evertonmaldonado.model.CommentFile;
 public class HackWordMatcher {
 
 	private HashSet<String> wordList;
-	
+
 	public HackWordMatcher(){
 		wordList =  loadWords();
 	}
-	
+
 	public void readComments(CommentFile commentFile) throws IOException{
 		if(commentFile.getAbsoluteFileName() == null)
 			return;
-		
+
 		ArrayList<String> occurrences = new ArrayList<String>();
 		for (String word : wordList) {
 			if(commentFile.getContent().toLowerCase().contains(word.toLowerCase())){
 				occurrences.add(word);
 			}
 		}
-		
+
 		StringBuilder sb  = new StringBuilder();
 		if(!occurrences.isEmpty()){
 			sb.append(System.getProperty("line.separator"));
@@ -38,22 +38,22 @@ public class HackWordMatcher {
 				sb.append(System.getProperty("line.separator"));
 				sb.append(occurrence + " ; ");
 				sb.append(System.getProperty("line.separator"));
-				try{
-					sb.append("<BeginOfCommit>");
-					sb.append(System.getProperty("line.separator"));
-					sb.append(new GitPickaxeExtractor().getLog(commentFile, occurrence));
-					sb.append(System.getProperty("line.separator"));
-					sb.append("<EndOfCommit>");
-				}catch(Exception e){
-					System.out.println(commentFile.getAbsoluteFileName() + "  " +  e.getMessage());
-					sb.append(System.getProperty("line.separator"));
-					sb.append("<EndOfCommit>");
-				}
+			}
+			try{
+				sb.append("<BeginOfCommit>");
+				sb.append(System.getProperty("line.separator"));
+				sb.append(new GitPickaxeExtractor().getLog(commentFile, occurrences));
+				sb.append(System.getProperty("line.separator"));
+				sb.append("<EndOfCommit>");
+			}catch(Exception e){
+				System.out.println(commentFile.getAbsoluteFileName() + "  " +  e.getMessage());
+				sb.append(System.getProperty("line.separator"));
+				sb.append("<EndOfCommit>");
 			}
 			sb.append(System.getProperty("line.separator"));
 			sb.append("<EndOfFile>");
+			FileUtils.write(FileUtils.getFile("eclipse_hack_pattern.txt"), sb.toString(), true);
 		}
-		FileUtils.write(FileUtils.getFile("eclipse_hack_pattern.txt"), sb.toString(), true);
 	}
 
 	private HashSet<String> loadWords() {
@@ -93,7 +93,7 @@ public class HackWordMatcher {
 		words.add("this isn't very solid");
 		words.add("this is temporary and will go away");
 		words.add("is this line really safe");
-//		words.add("there is a problem"); removed to analyze eclipse projects
+		//		words.add("there is a problem"); removed to analyze eclipse projects
 		words.add("some fatal error");
 		words.add("something serious is wrong");
 		words.add("don't use this");
@@ -107,7 +107,7 @@ public class HackWordMatcher {
 		words.add("probably a bug");
 		words.add("hope everything will work");
 		words.add("toss it");
-//		words.add("barf"); removed to analyze eclipse projects
+		//		words.add("barf"); removed to analyze eclipse projects
 		words.add("something bad happened");
 		words.add("fix this crap");
 		words.add("yuck");

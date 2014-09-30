@@ -2,6 +2,7 @@ package com.evertonmaldonado.xtractor;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -14,51 +15,55 @@ public class GitPickaxeExtractor {
 
 	private static final String BASH_SCRIPTS = "bash_scripts/";
 
-	public String getLog(CommentFile commentFile, String hackPattern) throws ExecuteException, IOException{
-		String result = null;
+	public String getLog(CommentFile commentFile, Collection<String> hackWords) throws ExecuteException, IOException{
+		StringBuilder result = new StringBuilder();
 		String fileName = commentFile.getFileName();
 		String directory = commentFile.getDirectory();
-		
-		if(hackPattern.equals("temporary solution")){
-			return result = executeCommandWorkArround("git_pickaxe_temporary_solution.sh", fileName, directory);
 
-		}else if(hackPattern.equals("take care")){
-			return result = executeCommandWorkArround("git_pickaxe_take_care.sh", fileName, directory);
-
-		}else if(hackPattern.equals("workaround for bug")){
-			return result = executeCommandWorkArround("git_pickaxe_workaround_for_bug.sh", fileName, directory);
-
-		}else if(hackPattern.equals("is problematic")){
-			return result = executeCommandWorkArround("git_pickaxe_is_problematic.sh", fileName, directory);
-
-		}else if(hackPattern.equals("bail out")){
-			return result = executeCommandWorkArround("git_pickaxe_bail_out.sh", fileName, directory);
-
-		}else if(hackPattern.equals("don't use this")){
-			return result = executeCommandWorkArround("git_pickaxe_dont_use_thi.sh", fileName, directory);
-
-		}else if(hackPattern.equals("may cause problem")){
-			return result = executeCommandWorkArround("git_pickaxe_may_cause_problem.sh", fileName, directory);
-
-		}else if(hackPattern.equals("this is wrong")){
-			return result = executeCommandWorkArround("git_pickaxe_this_is_wrong.sh", fileName, directory);
-
-		}else if(hackPattern.equals("get rid of this ")){
-			return result = executeCommandWorkArround("git_pickaxe_get_rid_of_this.sh", fileName, directory);
-
-		}else{
-			result = executeCommand(hackPattern, commentFile.getFileName(), commentFile.getDirectory());
-			if(result.equals("")){
-				result = executeCommand(hackPattern.toUpperCase(), commentFile.getFileName(), commentFile.getDirectory());
+		for(String hackWord : hackWords){
+			//this is a work around 
+			if(hackWord.equals("temporary solution")){
+				result.append(executeCommandWorkArround("git_pickaxe_temporary_solution.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("take care")){
+				result.append(executeCommandWorkArround("git_pickaxe_take_care.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("workaround for bug")){
+				result.append(executeCommandWorkArround("git_pickaxe_workaround_for_bug.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("is problematic")){
+				result.append(executeCommandWorkArround("git_pickaxe_is_problematic.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("bail out")){
+				result.append(executeCommandWorkArround("git_pickaxe_bail_out.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("don't use this")){
+				result.append(executeCommandWorkArround("git_pickaxe_dont_use_thi.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("may cause problem")){
+				result.append(executeCommandWorkArround("git_pickaxe_may_cause_problem.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("this is wrong")){
+				result.append(executeCommandWorkArround("git_pickaxe_this_is_wrong.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else if(hackWord.equals("get rid of this ")){
+				result.append(executeCommandWorkArround("git_pickaxe_get_rid_of_this.sh", fileName, directory));
+				result.append(System.getProperty("line.separator"));
+			}else{
+//				can be improved
+				result.append(executeCommand(hackWord.trim(), commentFile.getFileName(), commentFile.getDirectory()));
+				if(result.equals("")){
+					result.append(executeCommand(hackWord.toUpperCase().trim(), commentFile.getFileName(), commentFile.getDirectory()));
+				}
 			}
 		}
-		return result;
+		return result.toString();
 	}
 
 	private String executeCommand(String hackPattern, String className, String directory) throws ExecuteException, IOException{
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
-		
+
 		CommandLine command = new CommandLine("git"); 
 		command.addArgument("log");
 		command.addArgument("-S");
@@ -70,21 +75,8 @@ public class GitPickaxeExtractor {
 		executor.setStreamHandler(streamHandler);
 		executor.execute(command);
 		return outputStream.toString();
-		
-//		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
-//		CommandLine command = new CommandLine("/bin/sh"); 
-//		command.addArgument(BASH_SCRIPTS + "git_pickaxe.sh");
-//		command.addArgument("\""+directory+"\"");
-//		command.addArgument("\""+hackPattern+"\"");
-//		command.addArgument("\""+className+"\"");
-//		DefaultExecutor executor = new DefaultExecutor();
-//		executor.setStreamHandler(streamHandler);
-//		executor.execute(command);
-//		return outputStream.toString();
-		
 	}
-	
+
 	private String executeCommandWorkArround(String scriptName,  String className, String directory) throws ExecuteException, IOException{
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
