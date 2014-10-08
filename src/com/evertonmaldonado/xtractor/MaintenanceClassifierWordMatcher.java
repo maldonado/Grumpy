@@ -179,7 +179,7 @@ public class MaintenanceClassifierWordMatcher {
 		words.add("this is uncool");
 		words.add("bail out");
 		words.add("it doesn't work yet");
-		words.add("crap");
+		words.add(" crap ");
 		words.add("inconsistency");
 		words.add("abandon all hope");
 		words.add("kaboom");
