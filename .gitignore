@@ -1,15 +1,22 @@
 .DS_Store
-.classpath
+
+
+
+
+
+
+
+
 bin
 oldFiles
-office365
-oldFiles
+
+
 *txt
 Src2srcMLFiles
 ExtractedCommentsFiles
-time log 12 28
-test.sh
-.project
+
+
+
 .settings/org.eclipse.jdt.core.prefs
 outputFiles/
 
