@@ -13,7 +13,7 @@ public class XmlFileReaderTest {
 	@Test
 	public void testXMLReader() throws Exception {
 		
-		FileInputStream fileStream = new FileInputStream("Src2srcMLFiles/eclipse_platform_04.xml");
+		FileInputStream fileStream = new FileInputStream("ParsedCode/freechart-fse.xml");
 		try {
 			Collection<String> nodes = new ArrayList<String>();
 			String file = IOUtils.toString(fileStream);

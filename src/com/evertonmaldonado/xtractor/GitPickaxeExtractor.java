@@ -14,6 +14,7 @@ import com.evertonmaldonado.model.CommentFile;
 public class GitPickaxeExtractor {
 
 	private static final String BASH_SCRIPTS = "bash_scripts/";
+	private static final String BASE_DIRECTORY = "/home/apple/git/";
 
 	public String getLog(CommentFile commentFile, Collection<String> hackWords) {
 		StringBuilder result = new StringBuilder();
@@ -77,7 +78,7 @@ public class GitPickaxeExtractor {
 		command.addArgument("\""+className+"\"");
 
 		DefaultExecutor executor = new DefaultExecutor();
-		executor.setWorkingDirectory(new File(directory));
+		executor.setWorkingDirectory(new File(BASE_DIRECTORY+directory));
 		executor.setStreamHandler(streamHandler);
 		executor.execute(command);
 //		return 
@@ -93,7 +94,7 @@ public class GitPickaxeExtractor {
 		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
 		CommandLine command = new CommandLine("/bin/sh"); 
 		command.addArgument(BASH_SCRIPTS + scriptName);
-		command.addArgument("\""+directory+"\"");
+		command.addArgument("\""+BASE_DIRECTORY+directory+"\"");
 		command.addArgument("\""+className+"\"");
 		DefaultExecutor executor = new DefaultExecutor();
 		executor.setStreamHandler(streamHandler);

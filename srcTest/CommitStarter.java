@@ -15,8 +15,7 @@ public class CommitStarter {
 
 	@Test
 	public void start() throws IOException{
-		FileInputStream fileStream = new FileInputStream("eclipse_hack_pattern.txt");
-//		FileInputStream fileStream = new FileInputStream("test.txt");
+		FileInputStream fileStream = new FileInputStream("HackwordAndCommit/freechart_hack_pattern.txt");
 		String file = IOUtils.toString(fileStream);
 		String[] splited = file.split("<EndOfFile>");
 
@@ -33,5 +32,4 @@ public class CommitStarter {
 		System.out.println("nonFunctionalChange =  "+ FileCounter.getNonFunctionalChange());
 		System.out.println("withoutClassificationChange =  "+ FileCounter.getWithoutClassificationChange());
 	}
-
 }

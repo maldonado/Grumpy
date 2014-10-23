@@ -29,41 +29,32 @@ public class Src2SrmlConverter implements Converter{
 		unit.setFileName(fileName);	
 		
 		while(reader.hasMoreChildren()){
-//			System.out.println(reader.getNodeName());
 			reader.moveDown();
-//			System.out.println(reader.getNodeName());
 			if("comment".equals(reader.getNodeName())){
 				String comment = reader.getValue();
 				unit.addComment(comment);
 			}
 			if("class".equals(reader.getNodeName())){
 				while(reader.hasMoreChildren()){
-//					System.out.println(reader.getNodeName());
 					reader.moveDown();
-//					System.out.println(reader.getNodeName());
 					if("comment".equals(reader.getNodeName())){
 						String comment = reader.getValue();
 						unit.addComment(comment);
 					}
 					if("block".equals(reader.getNodeName())){
 						while(reader.hasMoreChildren()){
-//							System.out.println(reader.getNodeName());
 							reader.moveDown();
-//							System.out.println(reader.getNodeName());
 							if("comment".equals(reader.getNodeName())){
 								String comment = reader.getValue();
 								unit.addComment(comment);
 							}
 							reader.moveUp();
-//							System.out.println(reader.getNodeName());
 						}
 					}
 					reader.moveUp();
-//					System.out.println(reader.getNodeName());
 				}
 			}
 			reader.moveUp();
-//			System.out.println(reader.getNodeName());
 		}
 		return unit;
 	}

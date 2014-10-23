@@ -13,8 +13,7 @@ public class CommentFileReader {
 	@Test
 	public void testCommentFileReader() throws Exception {
 
-		FileInputStream fileStream = new FileInputStream("eclipse_all_comments.txt");
-//		FileInputStream fileStream = new FileInputStream("small.txt");
+		FileInputStream fileStream = new FileInputStream("ExtractedComments/freechart-fse_comments.txt");
 		String file = IOUtils.toString(fileStream);
 		String[] splited = file.split("<EndOfFile>");
 

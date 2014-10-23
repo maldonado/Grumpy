@@ -25,7 +25,6 @@ public class HackWordMatcher {
 				occurrences.add(word);
 			}
 		}
-// 		String builder x String buffer 
 		StringBuilder sb  = new StringBuilder();
 		if(!occurrences.isEmpty()){
 			sb.append(System.getProperty("line.separator"));
@@ -52,7 +51,7 @@ public class HackWordMatcher {
 			}
 			sb.append(System.getProperty("line.separator"));
 			sb.append("<EndOfFile>");
-			FileUtils.write(FileUtils.getFile("eclipse_hack_pattern.txt"), sb.toString(), true);
+			FileUtils.write(FileUtils.getFile("freechart_hack_pattern.txt"), sb.toString(), true);
 		}
 	}
 
@@ -93,7 +92,8 @@ public class HackWordMatcher {
 		words.add("this isn't very solid");
 		words.add("this is temporary and will go away");
 		words.add("is this line really safe");
-		//		words.add("there is a problem"); removed to analyze eclipse projects
+		//remove when analyzing eclipse
+		words.add("there is a problem");
 		words.add("some fatal error");
 		words.add("something serious is wrong");
 		words.add("don't use this");
@@ -107,7 +107,8 @@ public class HackWordMatcher {
 		words.add("probably a bug");
 		words.add("hope everything will work");
 		words.add("toss it");
-		//		words.add("barf"); removed to analyze eclipse projects
+		//remove when analyzing eclipse
+		words.add("barf"); 
 		words.add("something bad happened");
 		words.add("fix this crap");
 		words.add("yuck");

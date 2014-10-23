@@ -29,7 +29,7 @@ public class XmlFileReader {
 			b.append("<EndOfFile>");
 			b.append(System.getProperty("line.separator"));
 			
-			FileUtils.writeStringToFile(FileUtils.getFile("eclipse_all_comments.txt"), b.toString(), true);
+			FileUtils.writeStringToFile(FileUtils.getFile("freechart-fse_comments.txt"), b.toString(), true);
 		}
 	}
 }
