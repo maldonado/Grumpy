@@ -1,4 +1,4 @@
-package com.evertonmaldonado.model;
+package com.evermal.model;
 
 
 public class CommentFile extends FileFromText{

@@ -1,4 +1,4 @@
-package com.evertonmaldonado.model;
+package com.evermal.model;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,8 +24,6 @@ public class Commit {
 	private void populateCommitFromFile(String contentFromFile) {
 		allCommits = new HashSet<Commit>();
 		String commitPart = contentFromFile.substring((contentFromFile.indexOf("<BeginOfCommit>") + 15), (contentFromFile.lastIndexOf("<EndOfCommit>")));
-//		commitPart = commitPart.replaceAll("<BeginOfCommit>", "");
-//		commitPart = commitPart.replaceAll("<EndOfCommit>", "");
 		String[] lines =  commitPart.split("\n");
 		for (int i = 0; i < lines.length ; i++) {
 			if(lines[i].startsWith("commit")){

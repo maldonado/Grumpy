@@ -1,35 +1,47 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import com.evertonmaldonado.model.CommentFile;
-import com.evertonmaldonado.model.CommitFile;
-import com.evertonmaldonado.model.FileCounter;
-import com.evertonmaldonado.xtractor.HackWordMatcher;
-import com.evertonmaldonado.xtractor.MaintenanceClassifierWordMatcher;
+import com.evermal.model.CommentFile;
+import com.evermal.model.CommitFile;
+import com.evermal.model.FileCounter;
+import com.evermal.xtractor.HackWordMatcher;
+import com.evermal.xtractor.MaintenanceClassifierWordMatcher;
 
 
 public class CommitStarter {
 
 	@Test
 	public void start() throws IOException{
-		FileInputStream fileStream = new FileInputStream("HackwordAndCommit/freechart_hack_pattern.txt");
+		FileInputStream fileStream = new FileInputStream("HackwordAndCommit/jmeter_hack_pattern.txt");
 		String file = IOUtils.toString(fileStream);
 		String[] splited = file.split("<EndOfFile>");
 
 		for (String commentsInOneClass : splited) {
 			MaintenanceClassifierWordMatcher reader = new MaintenanceClassifierWordMatcher();
-			reader.readCommits(new CommitFile(commentsInOneClass));
+			CommitFile commitFile = new CommitFile(commentsInOneClass);
+//			reader.readCommits(commitFile);
 		}
-		System.out.println("numberOfFilesAnalyzed =  "+ FileCounter.getNumberOfFilesAnalyzed());
-		System.out.println("numberOfCommitMessagesAnalyzed =  "+ FileCounter.getNumberOfCommitMessagesAnalyzed());
-		System.out.println("correctiveChange =  "+ FileCounter.getCorrectiveChange());
-		System.out.println("adaptativeChange =  "+ FileCounter.getAdaptativeChange());
-		System.out.println("perfectiveChange =  "+ FileCounter.getPerfectiveChange());
-		System.out.println("featureAdditionChange =  "+ FileCounter.getFeatureAdditionChange());
-		System.out.println("nonFunctionalChange =  "+ FileCounter.getNonFunctionalChange());
-		System.out.println("withoutClassificationChange =  "+ FileCounter.getWithoutClassificationChange());
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("numberOfFilesAnalyzed =  "+ FileCounter.getNumberOfFilesAnalyzed());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("numberOfCommitMessagesAnalyzed =  "+ FileCounter.getNumberOfCommitMessagesAnalyzed());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("correctiveChange =  "+ FileCounter.getCorrectiveChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("adaptativeChange =  "+ FileCounter.getAdaptativeChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("perfectiveChange =  "+ FileCounter.getPerfectiveChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("featureAdditionChange =  "+ FileCounter.getFeatureAdditionChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("nonFunctionalChange =  "+ FileCounter.getNonFunctionalChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("withoutClassificationChange =  "+ FileCounter.getWithoutClassificationChange());
+		FileUtils.write(FileUtils.getFile("jmeter_hack_pattern.txt"), sb, true);
 	}
 }

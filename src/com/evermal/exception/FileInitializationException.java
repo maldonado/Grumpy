@@ -1,4 +1,4 @@
-package com.evertonmaldonado.exception;
+package com.evermal.exception;
 
 public class FileInitializationException extends RuntimeException {
 

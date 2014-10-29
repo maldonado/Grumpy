@@ -1,6 +1,6 @@
-package com.evertonmaldonado.xtractor;
+package com.evermal.xtractor;
 
-import com.evertonmaldonado.model.Unit;
+import com.evermal.model.Unit;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;

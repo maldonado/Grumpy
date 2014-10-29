@@ -1,11 +1,12 @@
-package com.evertonmaldonado.xtractor;
+package com.evermal.xtractor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
-import com.evertonmaldonado.model.CommentFile;
+import com.evermal.model.CommentFile;
 
 public class HackWordMatcher {
 
@@ -14,10 +15,26 @@ public class HackWordMatcher {
 	public HackWordMatcher(){
 		wordList =  loadWords();
 	}
+	
+	public String proccess(String fileName) throws IOException{
+		FileInputStream fileStream = new FileInputStream(fileName);
+		String file = IOUtils.toString(fileStream);
+		String[] splited = file.split("<EndOfFile>");
+		StringBuilder sb = new StringBuilder();
+		for (String commentsInOneClass : splited) {
+			try {
+				CommentFile commentFile = new CommentFile(commentsInOneClass);
+				sb.append(readComments(commentFile));
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		return sb.toString();
+	}
 
-	public void readComments(CommentFile commentFile) throws IOException{
+	private String readComments(CommentFile commentFile) throws IOException{
 		if(commentFile.getAbsoluteFileName() == null)
-			return;
+			return "";
 
 		ArrayList<String> occurrences = new ArrayList<String>();
 		for (String word : wordList) {
@@ -51,8 +68,8 @@ public class HackWordMatcher {
 			}
 			sb.append(System.getProperty("line.separator"));
 			sb.append("<EndOfFile>");
-			FileUtils.write(FileUtils.getFile("freechart_hack_pattern.txt"), sb.toString(), true);
 		}
+		return sb.toString();
 	}
 
 	private HashSet<String> loadWords() {

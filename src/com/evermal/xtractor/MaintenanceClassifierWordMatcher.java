@@ -1,24 +1,56 @@
-package com.evertonmaldonado.xtractor;
+package com.evermal.xtractor;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
+import org.apache.commons.io.IOUtils;
 
-import org.apache.commons.io.FileUtils;
-
-import com.evertonmaldonado.model.Commit;
-import com.evertonmaldonado.model.CommitFile;
-import com.evertonmaldonado.model.FileCounter;
+import com.evermal.model.Commit;
+import com.evermal.model.CommitFile;
+import com.evermal.model.FileCounter;
+import com.evermal.utils.FileUtils;
 
 public class MaintenanceClassifierWordMatcher {
 	
-	public void readCommits(CommitFile commitFile) throws IOException{
-		boolean hasCorrective = checkCommitMessageWith(correctiveWords(), commitFile, "outputFiles/corrective_change.txt");
-		boolean hasAdaptative = checkCommitMessageWith(adaptativeWords(), commitFile, "outputFiles/adaptative_change.txt");
-		boolean hasPerfective = checkCommitMessageWith(perfectiveWords(), commitFile, "outputFiles/perfective_change.txt");
-		boolean hasFeatureAddition = checkCommitMessageWith(featureAdditionWords(), commitFile, "outputFiles/feature_addition_change.txt");
-		boolean hasNonFunctional = checkCommitMessageWith(nonFunctionalWords(), commitFile, "outputFiles/feature_addition_change.txt");
+	public void processFile(String fileName) throws IOException{
 		
-		checkCommitMessageWith(hackWords(), commitFile, "outputFiles/hack_commit_message.txt");
+		FileInputStream fileStream = new FileInputStream(fileName);
+		String file = IOUtils.toString(fileStream);
+		String[] splited = file.split("<EndOfFile>");
+
+		for (String commentsInOneClass : splited) {
+			CommitFile commitFile = new CommitFile(commentsInOneClass);
+			readCommits(commitFile, fileName);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(System.getProperty("line.separator"));
+		sb.append("numberOfFilesAnalyzed =  "+ FileCounter.getNumberOfFilesAnalyzed());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("numberOfCommitMessagesAnalyzed =  "+ FileCounter.getNumberOfCommitMessagesAnalyzed());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("correctiveChange =  "+ FileCounter.getCorrectiveChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("adaptativeChange =  "+ FileCounter.getAdaptativeChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("perfectiveChange =  "+ FileCounter.getPerfectiveChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("featureAdditionChange =  "+ FileCounter.getFeatureAdditionChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("nonFunctionalChange =  "+ FileCounter.getNonFunctionalChange());
+		sb.append(System.getProperty("line.separator"));
+		sb.append("withoutClassificationChange =  "+ FileCounter.getWithoutClassificationChange());
+		FileUtils.WriteOrUpdateFile(FileUtils.getStatisticFileName(fileName), sb.toString());
+	}
+	
+	private void readCommits(CommitFile commitFile, String fileName) throws IOException{
+		boolean hasCorrective = checkCommitMessageWith(correctiveWords(), commitFile, FileUtils.getCorrectiveChangeFileName(fileName));
+		boolean hasAdaptative = checkCommitMessageWith(adaptativeWords(), commitFile, FileUtils.getAdaptativeChangeFileName(fileName));
+		boolean hasPerfective = checkCommitMessageWith(perfectiveWords(), commitFile, FileUtils.getPerfectiveChangeFileName(fileName));
+		boolean hasFeatureAddition = checkCommitMessageWith(featureAdditionWords(), commitFile, FileUtils.getFeatureAdditionChangeFileName(fileName));
+		boolean hasNonFunctional = checkCommitMessageWith(nonFunctionalWords(), commitFile, FileUtils.getNonFunctionalChangeFileName(fileName));
+		
+		checkCommitMessageWith(hackWords(), commitFile, FileUtils.getHackPatternOverlapFileName(fileName));
 
 		if(hasCorrective)
 			FileCounter.incrementCorrectiveChange();
@@ -53,7 +85,7 @@ public class MaintenanceClassifierWordMatcher {
 					sb.append(System.getProperty("line.separator"));
 					sb.append(commit.getCommitMessage());
 					sb.append(System.getProperty("line.separator"));
-					FileUtils.write(FileUtils.getFile(outputFileName), sb.toString(), true);
+					FileUtils.WriteOrUpdateFile(outputFileName, sb.toString());
 					hasClassification = true;
 					break;
 				}

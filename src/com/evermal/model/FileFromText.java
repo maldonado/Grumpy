@@ -1,8 +1,10 @@
-package com.evertonmaldonado.model;
+package com.evermal.model;
 
 import java.util.StringTokenizer;
 
-import com.evertonmaldonado.exception.FileInitializationException;
+import org.apache.commons.io.FileUtils;
+
+import com.evermal.exception.FileInitializationException;
 
 public abstract class FileFromText {
 	
@@ -62,4 +64,5 @@ public abstract class FileFromText {
 		String[] directoryPart =  this.absoluteFileName.split(this.fileName);
 		directory = directoryPart[0];
 	}
+
 }

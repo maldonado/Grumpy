@@ -1,4 +1,4 @@
-package com.evertonmaldonado.model;
+package com.evermal.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

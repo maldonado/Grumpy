@@ -3,9 +3,9 @@ import java.io.FileInputStream;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import com.evertonmaldonado.model.CommentFile;
-import com.evertonmaldonado.model.FileCounter;
-import com.evertonmaldonado.xtractor.HackWordMatcher;
+import com.evermal.model.CommentFile;
+import com.evermal.model.FileCounter;
+import com.evermal.xtractor.HackWordMatcher;
 
 
 public class CommentFileReader {
@@ -19,7 +19,7 @@ public class CommentFileReader {
 
 		for (String commentsInOneClass : splited) {
 			HackWordMatcher reader = new HackWordMatcher();
-			reader.readComments(new CommentFile(commentsInOneClass));
+//			reader.readComments(new CommentFile(commentsInOneClass));
 		}
 		System.out.println("numberOfFilesAnalyzed =  "+ FileCounter.getNumberOfFilesAnalyzed());
 	}

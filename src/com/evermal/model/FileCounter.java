@@ -1,4 +1,4 @@
-package com.evertonmaldonado.model;
+package com.evermal.model;
 
 public class FileCounter {
 	
@@ -10,6 +10,18 @@ public class FileCounter {
 	private static int withoutClassificationChange = 0;
 	private static int numberOfFilesAnalyzed = 0;
 	private static int numberOfCommitMessagesAnalyzed = 0;
+	
+	
+	public static void reset(){
+		correctiveChange = 0;
+		adaptativeChange = 0;
+		perfectiveChange = 0;
+		featureAdditionChange = 0;
+		nonFunctionalChange = 0;
+		withoutClassificationChange = 0;
+		numberOfFilesAnalyzed = 0;
+		numberOfCommitMessagesAnalyzed = 0;	
+	}
 	
 	public static void incrementCorrectiveChange(){
 		correctiveChange ++;

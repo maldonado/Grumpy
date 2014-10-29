@@ -1,4 +1,4 @@
-package com.evertonmaldonado.xtractor;
+package com.evermal.xtractor;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.exec.PumpStreamHandler;
 
-import com.evertonmaldonado.model.CommentFile;
+import com.evermal.model.CommentFile;
 
 public class GitPickaxeExtractor {
 

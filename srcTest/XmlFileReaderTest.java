@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import com.evertonmaldonado.xtractor.XmlFileReader;
+import com.evermal.xtractor.XmlFileReader;
 
 public class XmlFileReaderTest {
 
@@ -29,7 +29,7 @@ public class XmlFileReaderTest {
 			
 			for (String parcialNode : nodes) {
 				XmlFileReader reader = new XmlFileReader();
-				reader.readXML(parcialNode);
+//				reader.readXML(parcialNode);
 			}
 						
 		} catch (IOException e) {

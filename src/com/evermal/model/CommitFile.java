@@ -1,4 +1,4 @@
-package com.evertonmaldonado.model;
+package com.evermal.model;
 
 import java.util.Collection;
 
@@ -19,4 +19,6 @@ public class CommitFile extends FileFromText{
 	private void setCommits(){
 		commits = new Commit(content).getAllCommits();
 	}
+	
+	
 }
