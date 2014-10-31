@@ -7,22 +7,22 @@ import java.util.regex.Pattern;
 
 import com.evermal.model.FileCounter;
 import com.evermal.utils.FileUtils;
-import com.evermal.xtractor.BugExtraction;
+import com.evermal.xtractor.BugzillaExtractor;
 import com.evermal.xtractor.HackWordMatcher;
 import com.evermal.xtractor.MaintenanceClassifierWordMatcher;
 import com.evermal.xtractor.XmlFileReader;
 
-public class ProjectAnalyzer {
+public class FileBasedProjectAnalyzer {
 
 	public static void main(String[] args) {
 		try {
 			
 //			createCommentFileFromParsedCode();
 //			createHackPatternFileFromCommentedCode();
-			createCommitClassificationFileFromHackPatternFile();
+//			createCommitClassificationFileFromHackPatternFile();
 			
-//			BugExtraction bug = new BugExtraction();
-//			bug.retrieveBug();
+			BugzillaExtractor bug = new BugzillaExtractor();
+			bug.retrieveBug();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
