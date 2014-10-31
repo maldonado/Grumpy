@@ -1,9 +1,13 @@
 package com.evermal.execution;
 
 import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.evermal.model.FileCounter;
 import com.evermal.utils.FileUtils;
+import com.evermal.xtractor.BugExtraction;
 import com.evermal.xtractor.HackWordMatcher;
 import com.evermal.xtractor.MaintenanceClassifierWordMatcher;
 import com.evermal.xtractor.XmlFileReader;
@@ -12,9 +16,13 @@ public class ProjectAnalyzer {
 
 	public static void main(String[] args) {
 		try {
-			createCommentFileFromParsedCode();
-			createHackPatternFileFromCommentedCode();
+			
+//			createCommentFileFromParsedCode();
+//			createHackPatternFileFromCommentedCode();
 			createCommitClassificationFileFromHackPatternFile();
+			
+//			BugExtraction bug = new BugExtraction();
+//			bug.retrieveBug();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

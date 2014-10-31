@@ -110,7 +110,7 @@ public class HackWordMatcher {
 		words.add("this is temporary and will go away");
 		words.add("is this line really safe");
 		//remove when analyzing eclipse
-		words.add("there is a problem");
+//		words.add("there is a problem");
 		words.add("some fatal error");
 		words.add("something serious is wrong");
 		words.add("don't use this");
@@ -125,7 +125,7 @@ public class HackWordMatcher {
 		words.add("hope everything will work");
 		words.add("toss it");
 		//remove when analyzing eclipse
-		words.add("barf"); 
+//		words.add("barf"); 
 		words.add("something bad happened");
 		words.add("fix this crap");
 		words.add("yuck");
@@ -135,7 +135,7 @@ public class HackWordMatcher {
 		words.add("this is uncool");
 		words.add("bail out");
 		words.add("it doesn't work yet");
-		words.add("crap");
+		words.add(" crap ");
 		words.add("inconsistency");
 		words.add("abandon all hope");
 		words.add("kaboom");

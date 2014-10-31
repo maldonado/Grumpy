@@ -2,6 +2,10 @@ package com.evermal.model;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Commit {
 
@@ -39,12 +43,30 @@ public class Commit {
 					}else if(lines[j].startsWith("Date")){
 						commit.setDate(lines[j]);
 					}else{
-						commit.setCommitMessage(lines[j]) ;	
+						commit.setCommitMessage(lines[j]) ;
+						StringTokenizer st = new StringTokenizer(lines[j]);
+						while(st.hasMoreTokens()){
+							Pattern pattern = Pattern.compile("\\d{4,6}");
+							String nextToken = st.nextToken();
+							Matcher matcher = pattern.matcher(nextToken);
+							if (matcher.find()){
+								FileCounter.addBugId(nextToken);
+							}
+						} 
 					}
 				}
 				allCommits.add(commit);
 			}
 		}
+	}
+
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(date);
+		sb.append(System.getProperty("line.separator"));
+		sb.append(commitMessage);
+		sb.append(System.getProperty("line.separator"));
+		return sb.toString();
 	}
 
 	private void setId(String id){

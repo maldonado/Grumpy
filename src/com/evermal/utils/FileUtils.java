@@ -17,6 +17,8 @@ public class FileUtils {
 	private static final String FEATURE_ADDITION_CHANGE = "_feature_addition_change.txt";
 	private static final String NON_FUNCTIONAL_CHANGE = "_non_functional_change.txt";
 	private static final String HACK_PATTERN_OVERLAP = "_hack_pattern_overlap.txt";
+	private static final String BUG_ID_FILE = "_bug_id.txt";
+	
 	
 	private static final String XML_EXTENSION = ".xml";
 	private static final String TXT_EXTENSION = ".txt";
@@ -55,6 +57,10 @@ public class FileUtils {
 	
 	public static String getStatisticFileName(String filePath) throws IOException {
 		return getFileName(filePath, "statistics.directory", STATISTIC_FILE);
+	}
+	
+	public static String getBugIdFileName(String filePath) {
+		return getFileName(filePath, "statistics.directory", BUG_ID_FILE);
 	}
 	
 	public static String getCorrectiveChangeFileName(String commentFile) throws IOException {
@@ -125,4 +131,5 @@ public class FileUtils {
 		};
 		return txtFileFilter;
 	}
+
 }

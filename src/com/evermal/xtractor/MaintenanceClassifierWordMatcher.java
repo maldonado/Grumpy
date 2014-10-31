@@ -3,6 +3,7 @@ package com.evermal.xtractor;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
+
 import org.apache.commons.io.IOUtils;
 
 import com.evermal.model.Commit;
@@ -41,6 +42,9 @@ public class MaintenanceClassifierWordMatcher {
 		sb.append(System.getProperty("line.separator"));
 		sb.append("withoutClassificationChange =  "+ FileCounter.getWithoutClassificationChange());
 		FileUtils.WriteOrUpdateFile(FileUtils.getStatisticFileName(fileName), sb.toString());
+		
+		
+		FileUtils.WriteOrUpdateFile(FileUtils.getBugIdFileName(fileName), FileCounter.getBugIdList());
 	}
 	
 	private void readCommits(CommitFile commitFile, String fileName) throws IOException{
@@ -98,6 +102,8 @@ public class MaintenanceClassifierWordMatcher {
 		HashSet<String> words = new HashSet<String>();
 		words.add("bug");
 		words.add("fixes");
+		words.add("LUCENE");
+		words.add("SOLR");
 		words.add("bugfix");
 		words.add("correction");
 		words.add("merge");

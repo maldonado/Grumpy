@@ -22,7 +22,7 @@ public class CommitStarter {
 
 		for (String commentsInOneClass : splited) {
 			MaintenanceClassifierWordMatcher reader = new MaintenanceClassifierWordMatcher();
-			CommitFile commitFile = new CommitFile(commentsInOneClass);
+//			CommitFile commitFile = new CommitFile(commentsInOneClass);
 //			reader.readCommits(commitFile);
 		}
 		

@@ -19,6 +19,4 @@ public class CommitFile extends FileFromText{
 	private void setCommits(){
 		commits = new Commit(content).getAllCommits();
 	}
-	
-	
 }
