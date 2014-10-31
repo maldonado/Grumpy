@@ -14,7 +14,7 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.apache.xmlrpc.client.XmlRpcCommonsTransportFactory;
 
-import com.evermal.model.Eclipsebug;
+import com.evermal.model.EclipseBug;
 
 public class BugzillaExtractor {
 
@@ -87,7 +87,7 @@ public class BugzillaExtractor {
 	}
 
 	private void createEclipseBug(HashMap bug, Long reportedlt, Long lastChangeTime) {
-		Eclipsebug eclipseBug = new Eclipsebug();
+		EclipseBug eclipseBug = new EclipseBug();
 		eclipseBug.setId((Integer) bug.get("id"));
 		eclipseBug.setComponent((String) bug.get("component"));
 		eclipseBug.setProduct((String) bug.get("product"));
@@ -97,7 +97,7 @@ public class BugzillaExtractor {
 		eclipseBug.setResolvedDate(new Timestamp(lastChangeTime));
 		eclipseBug.setSummary((String)bug.get("summary"));
 		eclipseBug.setAssignee((String)bug.get("assigned_to"));
-		eclipseBug.insert();
+		eclipseBug.save();
 	}
 
 	private void setupProperties() {

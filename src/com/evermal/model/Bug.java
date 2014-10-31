@@ -2,6 +2,7 @@ package com.evermal.model;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.evermal.utils.ConnectionFactory;
 
@@ -71,5 +72,24 @@ public abstract class Bug {
 	public Timestamp getResolvedDate() {
 		return resolvedDate;
 	}
-
+	
+	public String calculateDeltasOfBugLifesCycle(){
+		long firstDelta = 0;
+		long secondDelta = 0;
+		long thirdDelta = 0;
+		long commitedDateMilli = 0;
+		long creationDateMilli = this.creationDate.getTime();
+		
+		if(commitedDate != null){
+			commitedDateMilli = this.commitedDate.getTime();
+			firstDelta = (((commitedDateMilli - creationDateMilli)/1000)/60)/24;
+		}
+		if(resolvedDate != null){
+			long resolvedDateMilli = this.resolvedDate.getTime();
+			secondDelta = (((resolvedDateMilli - commitedDateMilli)/1000)/60)/24;
+			thirdDelta = (((resolvedDateMilli - creationDateMilli)/1000)/60)/24;
+		}
+		
+		return String.format("Difference between creation and commit of {0}, and between commit and solution {1}. Total difference {2}", firstDelta, secondDelta, thirdDelta );
+	}
 }
