@@ -24,11 +24,10 @@ public class LuceneBug extends Bug{
 		this.priority = priority;
 	}
 	
-	
 	public List<LuceneBug> findAll(){
 		try {
 			ArrayList<LuceneBug> allBugs = new ArrayList<LuceneBug>();
-			String sql = "SELECT * FROM lucene_found_issues";
+			String sql = "SELECT * FROM lusene_found_issues";
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 			while(result.next()){
@@ -38,7 +37,7 @@ public class LuceneBug extends Bug{
 				bug.setStatus(result.getString("status"));
 				bug.setResolution(result.getString("resolution"));
 				bug.setSummary(result.getString("summary"));
-				bug.setCreationDate(result.getTimestamp("creationdate"));
+				bug.setCreationDate(result.getTimestamp("creationDate"));
 				bug.setCommitedDate(result.getTimestamp("commitedDate"));
 				bug.setResolvedDate(result.getTimestamp("resolvedDate"));
 				allBugs.add(bug);
@@ -48,5 +47,9 @@ public class LuceneBug extends Bug{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	@Override
+	public String getBugidAsString() {
+		return id;
 	}
 }

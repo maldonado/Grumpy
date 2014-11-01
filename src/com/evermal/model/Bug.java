@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
 import com.evermal.utils.ConnectionFactory;
 
 public abstract class Bug {
@@ -72,24 +75,48 @@ public abstract class Bug {
 	public Timestamp getResolvedDate() {
 		return resolvedDate;
 	}
-	
+
+	//	TODO: BUGID TO STRING TO DISPLAY PROPERLY in eclipse bug to avoid this abstracted methods here; 
 	public String calculateDeltasOfBugLifesCycle(){
-		long firstDelta = 0;
-		long secondDelta = 0;
-		long thirdDelta = 0;
-		long commitedDateMilli = 0;
-		long creationDateMilli = this.creationDate.getTime();
 		
-		if(commitedDate != null){
-			commitedDateMilli = this.commitedDate.getTime();
-			firstDelta = (((commitedDateMilli - creationDateMilli)/1000)/60)/24;
-		}
-		if(resolvedDate != null){
-			long resolvedDateMilli = this.resolvedDate.getTime();
-			secondDelta = (((resolvedDateMilli - commitedDateMilli)/1000)/60)/24;
-			thirdDelta = (((resolvedDateMilli - creationDateMilli)/1000)/60)/24;
-		}
+		String bugIdAsString = getBugidAsString(); 
 		
-		return String.format("Difference between creation and commit of {0}, and between commit and solution {1}. Total difference {2}", firstDelta, secondDelta, thirdDelta );
+		DateTime jodaCreationDate = new DateTime(creationDate);
+		DateTime jodaCommitedDate = new DateTime(commitedDate);
+		DateTime jodaResolvedDate = new DateTime(resolvedDate);
+		
+		Days firstDelta  = Days.daysBetween(jodaCreationDate, jodaCommitedDate);
+		Days secondDelta = Days.daysBetween(jodaCommitedDate, jodaResolvedDate);
+		Days thirdDelta  = Days.daysBetween(jodaCreationDate, jodaResolvedDate);
+		
+//		if(resolvedDate != null){
+//			long resolvedDateMilli = this.resolvedDate.getTime();
+//			secondDelta = (((resolvedDateMilli - commitedDateMilli)/1000)/60)/24;
+//			thirdDelta = (((resolvedDateMilli - creationDateMilli)/1000)/60)/24;
+//		}
+		StringBuilder sb = new StringBuilder();
+//		sb.append("\t");
+//		sb.append("C~CO");
+//		sb.append("\t\t");
+//		sb.append("CO~RE");
+//		sb.append("\t\t");
+//		sb.append("C~RE");
+//		sb.append("\n");
+//		sb.append("\t");
+//		sb.append("\n");
+		sb.append(bugIdAsString);
+		sb.append(";");
+		sb.append(firstDelta.getDays());
+//		sb.append("\t\t");
+		sb.append(";");
+		sb.append(secondDelta.getDays());
+//		sb.append("\t\t");
+		sb.append(";");
+		sb.append(thirdDelta.getDays());
+		return   sb.toString();
+//		return "Difference between creation and commit of "+firstDelta.getDays()+", and between commit and solution "+secondDelta.getDays()+". Total life cycle "+thirdDelta.getDays();
 	}
+
+	public abstract String getBugidAsString();
+	
 }

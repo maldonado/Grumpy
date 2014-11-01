@@ -94,4 +94,9 @@ public class EclipseBug extends Bug{
 		}
 		return null;
 	}
+
+	@Override
+	public String getBugidAsString() {
+		return String.valueOf(id);
+	}
 }
